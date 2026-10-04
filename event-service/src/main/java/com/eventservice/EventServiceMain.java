@@ -1,13 +1,13 @@
-package com.userservice;
+package com.eventservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserService {
+public class EventServiceMain {
 
     public static void main(String[] args) {
-		SpringApplication.run(UserService.class, args);
+		SpringApplication.run(EventServiceMain.class, args);
 	}
 
 }
