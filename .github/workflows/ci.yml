@@ -13,6 +13,21 @@ jobs:
       matrix:
         service: [api-gateway, user-service, event-service, reservation-service]
 
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: event_hub
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,6 +40,12 @@ jobs:
           cache: 'maven'
 
       - name: Build and Test
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/event_hub
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: root
+          JWT_SECRET: test-secret-for-ci-only-not-used-anywhere-else
+          JWT_EXPIRATION: 3000000
         run: |
           chmod +x mvnw
           ./mvnw -pl ${{ matrix.service }} -am clean verify
