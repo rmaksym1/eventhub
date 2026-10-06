@@ -14,6 +14,7 @@ databaseChangeLog:
                     primaryKey: true
                     references: users(id)
                     foreignKeyName: fk_users_roles_user
+
               - column:
                   name: role_id
                   type: bigint
@@ -22,3 +23,23 @@ databaseChangeLog:
                     primaryKey: true
                     references: roles(id)
                     foreignKeyName: fk_users_roles_role
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 2
+              - column:
+                  name: role_id
+                  valueNumeric: 3

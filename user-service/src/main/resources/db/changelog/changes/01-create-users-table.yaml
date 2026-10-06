@@ -13,22 +13,58 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+
               - column:
                   name: email
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
+
               - column:
                   name: first_name
                   type: varchar(255)
                   constraints:
                     nullable: false
+
               - column:
                   name: last_name
                   type: varchar(255)
+
               - column:
                   name: password
                   type: varchar(255)
                   constraints:
                     nullable: false
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: admin@gmail.com
+              - column:
+                  name: password
+                  value: "$2a$08$4YEuzOvP.XxWz2Q3aArBBecA.x849iBLuSWzM4tBR7kXCU9jhrPgG"
+              - column:
+                  name: first_name
+                  value: admin
+              - column:
+                  name: last_name
+                  value: admin
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: organizer@gmail.com
+              - column:
+                  name: password
+                  value: "$2a$08$4YEuzOvP.XxWz2Q3aArBBecA.x849iBLuSWzM4tBR7kXCU9jhrPgG"
+              - column:
+                  name: first_name
+                  value: organizer
+              - column:
+                  name: last_name
+                  value: organizer

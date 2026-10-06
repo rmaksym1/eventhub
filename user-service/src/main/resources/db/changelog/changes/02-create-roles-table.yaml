@@ -13,21 +13,31 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+
               - column:
                   name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
+
         - insert:
             tableName: roles
             columns:
-              - column: { name: name, value: ROLE_ADMIN }
+              - column:
+                  name: name
+                  value: ROLE_ADMIN
+
         - insert:
             tableName: roles
             columns:
-              - column: { name: name, value: ROLE_USER }
+              - column:
+                  name: name
+                  value: ROLE_USER
+
         - insert:
             tableName: roles
             columns:
-              - column: { name: name, value: ROLE_ORGANIZER }
+              - column:
+                  name: name
+                  value: ROLE_ORGANIZER
