@@ -1,6 +1,7 @@
 package com.userservice.service.impl;
 
 import com.eventhub.common.exception.EntityNotFoundException;
+import com.eventhub.common.security.JwtUtil;
 import com.userservice.dto.user.AuthResponse;
 import com.userservice.dto.user.CreateUserRequest;
 import com.userservice.dto.user.UserRequest;
@@ -12,7 +13,6 @@ import com.userservice.mapper.UserMapper;
 import com.userservice.repository.RefreshTokenRepository;
 import com.userservice.repository.RoleRepository;
 import com.userservice.repository.UserRepository;
-import com.userservice.security.JwtUtil;
 import com.userservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,13 +21,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final JwtUtil jwtUtil;
+    private final JwtUtil jwtTokenUtil;
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
@@ -37,11 +38,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(UserRequest request) {
+        User user = userRepository.findByEmail(request.email()).orElseThrow(
+                () -> new EntityNotFoundException("User by email: " + request.email() + " not found!")
+        );
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
 
-        String accessToken = jwtUtil.generateToken(request.email());
+        String accessToken = createAccessToken(user);
 
         RefreshToken refreshToken = createRefreshToken(request.email());
         return new AuthResponse(accessToken, refreshToken.getToken());
@@ -63,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
 
-        String accessToken = jwtUtil.generateToken(request.email());
+        String accessToken = createAccessToken(user);
         RefreshToken refreshToken = createRefreshToken(request.email());
 
         return new AuthResponse(accessToken, refreshToken.getToken());
@@ -79,15 +84,29 @@ public class AuthServiceImpl implements AuthService {
             throw new AuthenticationException("Refresh token is expired!");
         }
 
-        return jwtUtil.generateToken(savedToken.getUsername());
+        String username = savedToken.getUsername();
+
+        User user = userRepository.findByEmail(username).orElseThrow(
+                () -> new EntityNotFoundException("User by email: " + username + " not found!")
+        );
+
+        return createAccessToken(user);
     }
 
-    public RefreshToken createRefreshToken(String username) {
+    private RefreshToken createRefreshToken(String username) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUsername(username);
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setExpiryDate(Instant.now().plus(Duration.ofDays(7)));
 
         return refreshTokenRepository.save(refreshToken);
+    }
+
+    private String createAccessToken(User user) {
+        List<String> roles = user.getRoles().stream()
+                .map(Role::toString)
+                .toList();
+
+        return jwtTokenUtil.generateToken(user.getUsername(), roles);
     }
 }

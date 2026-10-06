@@ -24,6 +24,11 @@ public class Role implements GrantedAuthority {
         return name.name();
     }
 
+    @Override
+    public String toString() {
+        return name != null ? name.name() : "null";
+    }
+
     public enum RoleName {
         ROLE_USER,
         ROLE_ORGANIZER,

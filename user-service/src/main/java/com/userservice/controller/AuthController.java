@@ -6,9 +6,11 @@ import com.userservice.dto.user.UserRequest;
 import com.userservice.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +23,13 @@ public class AuthController {
 
     @PostMapping("/register")
     @Operation(summary = "Register a new user")
-    public ResponseEntity<AuthResponse> register(CreateUserRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody @Valid CreateUserRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
     @Operation(summary = "Login as existing user")
-    public ResponseEntity<AuthResponse> login(UserRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody @Valid UserRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
 
