@@ -1,11 +1,11 @@
 FROM eclipse-temurin:25-jdk-alpine AS builder
 WORKDIR /application
 COPY . .
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
+RUN ./mvnw -pl user-service -am clean package -DskipTests
 
 FROM eclipse-temurin:25-jre-alpine
 WORKDIR /application
-COPY --from=builder /application/target/*.jar application.jar
+COPY --from=builder /application/user-service/target/*.jar application.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "application.jar"]

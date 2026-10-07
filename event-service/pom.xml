@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.eventhub</groupId>
+		<artifactId>eventhub</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>eventservice</artifactId>
@@ -24,6 +24,19 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>4.1.1</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -51,6 +64,18 @@
             <version>5.0.4</version>
             <scope>compile</scope>
         </dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.eventhub</groupId>
+			<artifactId>eventhub-common</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
