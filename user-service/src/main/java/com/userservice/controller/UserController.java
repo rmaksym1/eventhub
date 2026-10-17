@@ -1,6 +1,5 @@
 package com.userservice.controller;
 
-import com.userservice.dto.user.PublicUserResponse;
 import com.userservice.dto.user.UserResponse;
 import com.userservice.dto.user.UpdateRolesRequest;
 import com.userservice.dto.user.UserUpdateRequest;

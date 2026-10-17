@@ -1,7 +1,8 @@
 package com.userservice.service;
 
-import com.userservice.dto.user.*;
-import jakarta.validation.Valid;
+import com.userservice.dto.user.UpdateRolesRequest;
+import com.userservice.dto.user.UserResponse;
+import com.userservice.dto.user.UserUpdateRequest;
 import org.springframework.security.core.Authentication;
 
 public interface UserService {

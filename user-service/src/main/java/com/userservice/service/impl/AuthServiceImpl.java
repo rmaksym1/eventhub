@@ -2,8 +2,8 @@ package com.userservice.service.impl;
 
 import com.eventhub.common.exception.EntityNotFoundException;
 import com.eventhub.common.security.JwtUtil;
-import com.userservice.dto.user.AuthResponse;
-import com.userservice.dto.user.CreateUserRequest;
+import com.userservice.dto.auth.AuthResponse;
+import com.userservice.dto.auth.CreateUserRequest;
 import com.userservice.dto.user.UserRequest;
 import com.userservice.entity.user.RefreshToken;
 import com.userservice.entity.user.Role;

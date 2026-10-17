@@ -1,4 +1,4 @@
-package com.userservice.dto.user;
+package com.userservice.dto.auth;
 
 import com.userservice.validation.FieldMatch;
 import jakarta.validation.constraints.NotBlank;
