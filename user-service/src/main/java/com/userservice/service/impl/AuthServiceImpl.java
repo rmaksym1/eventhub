@@ -107,6 +107,6 @@ public class AuthServiceImpl implements AuthService {
                 .map(Role::toString)
                 .toList();
 
-        return jwtTokenUtil.generateToken(user.getUsername(), roles);
+        return jwtTokenUtil.generateToken(user.getUsername(), user.getId(), roles);
     }
 }
