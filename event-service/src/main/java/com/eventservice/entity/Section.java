@@ -23,7 +23,6 @@ public class Section {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Venue venue;
 
-    @JoinColumn(nullable = false)
     @OneToMany(mappedBy = "section")
     private Set<Seat> seats = new HashSet<>();
 }
