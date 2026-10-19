@@ -45,7 +45,8 @@ databaseChangeLog:
                   value: admin@gmail.com
               - column:
                   name: password
-                  value: "$2a$08$4YEuzOvP.XxWz2Q3aArBBecA.x849iBLuSWzM4tBR7kXCU9jhrPgG"
+                  # Only for testing purposes, 1234567890
+                  value: "$2a$08$cIC8ZKgVE/.ip83tZ5sapes46NnmrQ7CM0u0.IXwL4.PbC4niTyFy"
               - column:
                   name: first_name
                   value: admin
@@ -61,7 +62,8 @@ databaseChangeLog:
                   value: organizer@gmail.com
               - column:
                   name: password
-                  value: "$2a$08$4YEuzOvP.XxWz2Q3aArBBecA.x849iBLuSWzM4tBR7kXCU9jhrPgG"
+                  # Only for testing purposes, 1234567890
+                  value: "$2a$08$cIC8ZKgVE/.ip83tZ5sapes46NnmrQ7CM0u0.IXwL4.PbC4niTyFy"
               - column:
                   name: first_name
                   value: organizer

@@ -61,6 +61,10 @@ public class JwtUtil {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    public Long getUserId(String token) {
+        return getClaims(token).getPayload().get("userId", Long.class);
+    }
+
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = Jwts.parser()
                 .verifyWith(secret)
@@ -70,9 +74,10 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(String username, List<String> roles) {
+    public String generateToken(String username, Long userId, List<String> roles) {
         return Jwts.builder()
                 .subject(username)
+                .claim("userId", userId)
                 .claim("roles", roles.stream()
                         .map(Object::toString)
                         .toList())

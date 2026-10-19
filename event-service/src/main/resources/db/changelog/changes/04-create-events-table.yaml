@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-events-table
+      author: rmaksym1
+      changes:
+        - createTable:
+            tableName: events
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: starts_at
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ends_at
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: venue_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: venues(id)
+                    foreignKeyName: fk_events_venue
+
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: organizer_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false

@@ -22,9 +22,9 @@ spring:
             - id: event-service
               uri: http://event-service:8080
               predicates:
-                - Path=/api/events/**, /v3/api-docs/event-service
+                - Path=/api/events/**, /api/venues/**, /api/seats/**, /api/sections/**, /v3/api-docs/event-service
               filters:
-                - RewritePath=/v3/api-docs/event-service, /v3/api-docs
+                - RewritePath=/v3/api-docs/event-service, /api/v3/api-docs
 
             - id: reservation-service
               uri: http://reservation-service:8080
