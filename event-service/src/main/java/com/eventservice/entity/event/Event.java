@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -33,6 +34,12 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "venue_id", nullable = false)
     private Venue venue;
+
+    @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = false)
+    private BigDecimal ticketPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

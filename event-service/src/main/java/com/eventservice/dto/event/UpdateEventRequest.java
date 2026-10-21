@@ -21,6 +21,9 @@ public record UpdateEventRequest(
         LocalDateTime startsAt,
         @NotNull(message = "End date cannot be null!")
         LocalDateTime endsAt,
+        @NotBlank(message = "City name cannot be blank!")
+        @Size(max = 127, message = "City name cannot be more than 127 characters long")
+        String city,
         @NotNull(message = "Venue id cannot be null!")
         @Positive(message = "Venue id must be positive!")
         Long venueId,

@@ -1,7 +1,7 @@
 package com.eventservice.dto.event;
 
 import com.eventservice.entity.event.EventStatus;
-
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record EventResponse(
@@ -12,6 +12,8 @@ public record EventResponse(
         LocalDateTime endsAt,
         Long venueId,
         String venueName,
+        String city,
+        BigDecimal ticketPrice,
         EventStatus status,
         Long organizerId,
         LocalDateTime createdAt,

@@ -47,6 +47,18 @@ databaseChangeLog:
                     foreignKeyName: fk_events_venue
 
               - column:
+                  name: city
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ticket_price
+                  type: decimal(10, 2)
+                  constraints:
+                    nullable: false
+
+              - column:
                   name: status
                   type: varchar(255)
                   constraints:

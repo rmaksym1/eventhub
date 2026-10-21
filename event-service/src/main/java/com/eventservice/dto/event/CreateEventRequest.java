@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @ValidEventDates
@@ -22,6 +23,11 @@ public record CreateEventRequest(
         @NotNull(message = "End date cannot be null!")
         @Future(message = "Event cannot end in the past!")
         LocalDateTime endsAt,
+        @NotBlank(message = "City name cannot be null!")
+        @Size(max = 127, message = "City name cannot exceed 127 characters!")
+        String city,
+        @NotNull(message = "Price cannot be null!")
+        BigDecimal ticketPrice,
         @NotNull(message = "Venue id cannot be null!")
         @Positive(message = "Venue id must be positive!")
         Long venueId
