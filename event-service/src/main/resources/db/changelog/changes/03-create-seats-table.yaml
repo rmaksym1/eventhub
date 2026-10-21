@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-seats-table
+      author: rmaksym1
+      changes:
+        - createTable:
+            tableName: seats
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: row_number
+                  type: int
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: seat_number
+                  type: int
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: section_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: sections(id)
+                    foreignKeyName: fk_seats_section
+
+        - addUniqueConstraint:
+            tableName: seats
+            columnNames: section_id, row_number, seat_number
+            constraintName: uk_seat_section_row_number

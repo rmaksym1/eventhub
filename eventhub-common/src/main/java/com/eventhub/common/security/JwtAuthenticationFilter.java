@@ -33,10 +33,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null && jwtUtil.isValidToken(token)) {
             String username = jwtUtil.getUsername(token);
+            Long userId = jwtUtil.getUserId(token);
             List<GrantedAuthority> authorities = jwtUtil.getAuthorities(token);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    username, null, authorities
+                    new AuthenticatedUser(userId, username), null, authorities
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
