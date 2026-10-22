@@ -13,7 +13,9 @@
 	<version>1.0</version>
 	<properties>
 		<java.version>25</java.version>
+		<openfeign.querydsl.version>6.10.1</openfeign.querydsl.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -70,6 +72,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.github.openfeign.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${openfeign.querydsl.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.eventhub</groupId>
 			<artifactId>eventhub-common</artifactId>
 			<version>1.0</version>
@@ -113,6 +121,12 @@
                                     <artifactId>lombok-mapstruct-binding</artifactId>
                                     <version>0.2.0</version>
                                 </path>
+								<path>
+									<groupId>io.github.openfeign.querydsl</groupId>
+									<artifactId>querydsl-apt</artifactId>
+									<version>${openfeign.querydsl.version}</version>
+									<classifier>jakarta</classifier>
+								</path>
 							</annotationProcessorPaths>
 						</configuration>
 					</execution>

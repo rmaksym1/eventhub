@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -19,9 +21,11 @@ public record CreateEventRequest(
         String description,
         @NotNull(message = "Start date cannot be null!")
         @Future(message = "Event cannot start in the past!")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         LocalDateTime startsAt,
         @NotNull(message = "End date cannot be null!")
         @Future(message = "Event cannot end in the past!")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         LocalDateTime endsAt,
         @NotBlank(message = "City name cannot be null!")
         @Size(max = 127, message = "City name cannot exceed 127 characters!")
