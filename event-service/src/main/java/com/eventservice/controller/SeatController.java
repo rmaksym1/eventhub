@@ -2,6 +2,7 @@ package com.eventservice.controller;
 
 import com.eventservice.dto.seat.SeatRequest;
 import com.eventservice.dto.seat.SeatResponse;
+import com.eventservice.dto.seat.search.SeatSearchRequest;
 import com.eventservice.service.SeatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,6 +46,16 @@ public class SeatController {
             Pageable pageable
     ) {
         return ResponseEntity.ok(seatService.getAllSeats(pageable));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search for seats")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'ORGANIZER')")
+    public ResponseEntity<Page<SeatResponse>> search(
+            @RequestBody @Valid SeatSearchRequest request,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(seatService.search(request, pageable));
     }
 
     @PutMapping("/{id}")
