@@ -3,6 +3,7 @@ package com.eventservice.controller;
 import com.eventservice.dto.event.CreateEventRequest;
 import com.eventservice.dto.event.EventResponse;
 import com.eventservice.dto.event.UpdateEventRequest;
+import com.eventservice.dto.event.search.EventSearchRequest;
 import com.eventservice.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,7 +35,6 @@ public class EventController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get event by id")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'ORGANIZER')")
     public ResponseEntity<EventResponse> getEvent(
             @PathVariable Long id
     ) {
@@ -43,11 +43,19 @@ public class EventController {
 
     @GetMapping
     @Operation(summary = "Get all events")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'ORGANIZER')")
     public ResponseEntity<Page<EventResponse>> getAllEvents(
             Pageable pageable
     ) {
         return ResponseEntity.ok(eventService.getAllEvents(pageable));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search for events")
+    public ResponseEntity<Page<EventResponse>> search(
+            @RequestBody @Valid EventSearchRequest request,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(eventService.search(request, pageable));
     }
 
     @PutMapping("/{id}")

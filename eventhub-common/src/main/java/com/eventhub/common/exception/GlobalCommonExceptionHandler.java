@@ -32,6 +32,12 @@ public class GlobalCommonExceptionHandler {
                 ex.getMessage());
     }
 
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<Object> handleConflictException(ConflictException ex) {
+        return buildErrorResponse(HttpStatus.CONFLICT,
+                ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex) {
