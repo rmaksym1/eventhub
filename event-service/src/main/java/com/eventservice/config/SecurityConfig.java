@@ -28,10 +28,11 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/event", "/event/search",
+                        .requestMatchers("/events","/events/search",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**")
                         .permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
