@@ -31,7 +31,7 @@ spring:
               predicates:
                 - Path=/api/reservations/**, /v3/api-docs/reservation-service
               filters:
-                - RewritePath=/v3/api-docs/reservation-service, /v3/api-docs
+                - RewritePath=/v3/api-docs/reservation-service, /api/v3/api-docs
 
 springdoc:
   swagger-ui:
