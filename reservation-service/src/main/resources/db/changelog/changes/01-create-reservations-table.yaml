@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-reservations-table
+      author: rmaksym1
+      changes:
+        - createTable:
+            tableName: reservations
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: event_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: seat_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: expires_at
+                  type: timestamp(6)
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            constraintName: uk_reservation_event_seat
+            tableName: reservations
+            columnNames: event_id, seat_id
