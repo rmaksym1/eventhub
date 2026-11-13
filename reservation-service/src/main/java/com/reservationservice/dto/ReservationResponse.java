@@ -1,7 +1,7 @@
 package com.reservationservice.dto;
 
 import com.reservationservice.entity.ReservationStatus;
-
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record ReservationResponse(
@@ -11,5 +11,5 @@ public record ReservationResponse(
         Long seatId,
         ReservationStatus status,
         LocalDateTime createdAt,
-        LocalDateTime expiresAt
+        Instant expiresAt
 ) {}
