@@ -3,14 +3,15 @@ package com.reservationservice.controller;
 import com.reservationservice.dto.CreateReservationRequest;
 import com.reservationservice.dto.ReservationResponse;
 import com.reservationservice.dto.UpdateReservationStatusRequest;
+import com.reservationservice.dto.search.ReservationSearchRequest;
 import com.reservationservice.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,13 +26,14 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new reservation")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ReservationResponse> createReservation(
+    public ReservationResponse createReservation(
             Authentication authentication,
             @RequestBody @Valid CreateReservationRequest request
     ) {
-        return ResponseEntity.ok(reservationService.createReservation(authentication, request));
+        return reservationService.createReservation(authentication, request);
     }
 
     @GetMapping
@@ -42,6 +44,17 @@ public class ReservationController {
             Authentication authentication
     ) {
         return ResponseEntity.ok(reservationService.getAllReservations(pageable, authentication));
+    }
+
+    @GetMapping()
+    @Operation(summary = "Search reservations")
+    @PreAuthorize("hasAnyRole('USER', 'ORGANIZER', 'ADMIN')")
+    public ResponseEntity<Page<ReservationResponse>> search(
+            Authentication authentication,
+            Pageable pageable,
+            ReservationSearchRequest searchRequest
+    ) {
+        return ResponseEntity.ok(reservationService.search(authentication, pageable, searchRequest));
     }
 
     @GetMapping("/{id}")
@@ -66,7 +79,7 @@ public class ReservationController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete reservation by id")
-    @PreAuthorize("hasAnyRole('USER', 'ORGANIZER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('ORGANIZER', 'ADMIN')")
     public ResponseEntity<Void> deleteReservation(
             @PathVariable Long id
     ) {
