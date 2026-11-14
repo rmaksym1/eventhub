@@ -149,6 +149,11 @@ public class EventServiceImpl implements EventService {
         repository.deleteById(id);
     }
 
+    @Override
+    public boolean isOwner(Long eventId, Long organizerId) {
+        return repository.existsByIdAndOrganizerId(eventId, organizerId);
+    }
+
     private Venue findVenue(Long venueId) {
         return venueRepository.findById(venueId).orElseThrow(
                 () -> new EntityNotFoundException("Venue by id: " + venueId + " not found!")
