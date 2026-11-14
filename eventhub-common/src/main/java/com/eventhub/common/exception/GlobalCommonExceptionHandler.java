@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -53,6 +54,15 @@ public class GlobalCommonExceptionHandler {
         );
 
         return ResponseEntity.badRequest().body(buildErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed"));
+    }
+
+    @ExceptionHandler(HttpClientErrorException.NotFound.class)
+    public ResponseEntity<String> handleNotFound(
+            HttpClientErrorException.NotFound ex
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Seat not found");
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
