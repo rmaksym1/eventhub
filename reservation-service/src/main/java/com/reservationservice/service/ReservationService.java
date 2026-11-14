@@ -3,6 +3,7 @@ package com.reservationservice.service;
 import com.reservationservice.dto.CreateReservationRequest;
 import com.reservationservice.dto.ReservationResponse;
 import com.reservationservice.dto.UpdateReservationStatusRequest;
+import com.reservationservice.dto.search.ReservationSearchRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -19,4 +20,6 @@ public interface ReservationService {
     void deleteReservation(Long id);
 
     void expireReservations();
+
+    Page<ReservationResponse> search(Authentication authentication, Pageable pageable, ReservationSearchRequest searchRequest);
 }
