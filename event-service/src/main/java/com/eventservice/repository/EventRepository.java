@@ -32,4 +32,6 @@ public interface EventRepository extends JpaRepository<Event, Long>, QuerydslPre
     boolean existsOverlapping(@Param("venueId") Long venueId,
                               @Param("start") LocalDateTime start,
                               @Param("end") LocalDateTime end);
+
+    boolean existsByIdAndOrganizerId(Long eventId, Long organizerId);
 }

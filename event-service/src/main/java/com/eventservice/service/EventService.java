@@ -20,4 +20,6 @@ public interface EventService {
     EventResponse updateEvent(Authentication authentication, UpdateEventRequest request, Long id);
 
     void deleteEvent(Authentication authentication, Long id);
+
+    boolean isOwner(Long eventId, Long organizerId);
 }
