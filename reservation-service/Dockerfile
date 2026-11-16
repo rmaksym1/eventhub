@@ -1,8 +1,11 @@
+# syntax=docker/dockerfile:1
+
 FROM eclipse-temurin:25-jdk-alpine AS builder
 WORKDIR /application
 COPY . .
 RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
-RUN ./mvnw -pl reservation-service -am clean package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 \
+    ./mvnw -pl reservation-service -am clean package -DskipTests
 
 FROM eclipse-temurin:25-jre-alpine
 WORKDIR /application
