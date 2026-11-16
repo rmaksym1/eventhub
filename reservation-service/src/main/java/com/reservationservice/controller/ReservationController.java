@@ -46,7 +46,7 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.getAllReservations(pageable, authentication));
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     @Operation(summary = "Search reservations")
     @PreAuthorize("hasAnyRole('USER', 'ORGANIZER', 'ADMIN')")
     public ResponseEntity<Page<ReservationResponse>> search(

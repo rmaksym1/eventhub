@@ -21,5 +21,5 @@ public interface EventService {
 
     void deleteEvent(Authentication authentication, Long id);
 
-    boolean isOwner(Long eventId, Long organizerId);
+    Boolean isOwner(Long eventId, Long organizerId);
 }

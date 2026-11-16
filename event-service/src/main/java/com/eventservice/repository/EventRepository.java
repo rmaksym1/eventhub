@@ -33,5 +33,5 @@ public interface EventRepository extends JpaRepository<Event, Long>, QuerydslPre
                               @Param("start") LocalDateTime start,
                               @Param("end") LocalDateTime end);
 
-    boolean existsByIdAndOrganizerId(Long eventId, Long organizerId);
+    Boolean existsByIdAndOrganizerId(Long eventId, Long organizerId);
 }

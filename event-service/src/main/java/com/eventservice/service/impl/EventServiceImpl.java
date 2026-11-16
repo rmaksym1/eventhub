@@ -150,7 +150,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public boolean isOwner(Long eventId, Long organizerId) {
+    public Boolean isOwner(Long eventId, Long organizerId) {
         return repository.existsByIdAndOrganizerId(eventId, organizerId);
     }
 

@@ -133,7 +133,6 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         if (hasExactRole("ORGANIZER", authentication)) {
-
             if (request.eventId() == null) {
                 throw new IllegalArgumentException(
                         "Event ID is required for organizers"
