@@ -56,15 +56,6 @@ public class GlobalCommonExceptionHandler {
         return ResponseEntity.badRequest().body(buildErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed"));
     }
 
-    @ExceptionHandler(HttpClientErrorException.NotFound.class)
-    public ResponseEntity<String> handleNotFound(
-            HttpClientErrorException.NotFound ex
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("Seat not found");
-    }
-
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(EntityNotFoundException ex) {
         return buildErrorResponse(HttpStatus.NOT_FOUND,
@@ -74,6 +65,18 @@ public class GlobalCommonExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST,
+                ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.NotFound.class)
+    public ResponseEntity<Object> handleHttpClientErrorExceptionNotFound(HttpClientErrorException.NotFound ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND,
+                ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.BadRequest.class)
+    public ResponseEntity<Object> handleHttpClientErrorExceptionBadRequest(HttpClientErrorException.BadRequest ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND,
                 ex.getMessage());
     }
 

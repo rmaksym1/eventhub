@@ -10,7 +10,7 @@ public class EventClientConfig {
     @Bean
     public RestClient eventRestClient() {
         return RestClient.create(
-                "http://event-service:8081"
+                "http://event-service:8080/api"
         );
     }
 }
