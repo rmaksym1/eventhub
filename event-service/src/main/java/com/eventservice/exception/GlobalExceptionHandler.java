@@ -1,7 +1,6 @@
 package com.eventservice.exception;
 
 import com.eventhub.common.exception.EntityNotFoundException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -23,12 +22,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST,
                 ex.getMessage());
-    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        return buildErrorResponse(HttpStatus.CONFLICT,
-                "Request conflicts with existing data, check for duplicates or related entities!");
     }
 
     private ResponseEntity<Object> buildErrorResponse(HttpStatus status, String message) {
