@@ -36,7 +36,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>4.1.1</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -70,12 +69,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>io.github.openfeign.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${openfeign.querydsl.version}</version>
@@ -84,6 +77,13 @@
 		<dependency>
 			<groupId>com.eventhub</groupId>
 			<artifactId>eventhub-common</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.eventhub</groupId>
+			<artifactId>test-common</artifactId>
+			<scope>test</scope>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
