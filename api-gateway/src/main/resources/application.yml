@@ -22,7 +22,7 @@ spring:
             - id: event-service
               uri: http://event-service:8080
               predicates:
-                - Path=/api/events/**, /api/venues/**, /api/seats/**, /api/sections/**, /v3/api-docs/event-service
+                - Path=/api/internal/events/**, /api/events/**, /api/venues/**, /api/seats/**, /api/sections/**, /v3/api-docs/event-service
               filters:
                 - RewritePath=/v3/api-docs/event-service, /api/v3/api-docs
 
@@ -31,7 +31,7 @@ spring:
               predicates:
                 - Path=/api/reservations/**, /v3/api-docs/reservation-service
               filters:
-                - RewritePath=/v3/api-docs/reservation-service, /v3/api-docs
+                - RewritePath=/v3/api-docs/reservation-service, /api/v3/api-docs
 
 springdoc:
   swagger-ui:

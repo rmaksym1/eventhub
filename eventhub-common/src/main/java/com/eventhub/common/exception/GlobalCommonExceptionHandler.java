@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -64,6 +65,18 @@ public class GlobalCommonExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST,
+                ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.NotFound.class)
+    public ResponseEntity<Object> handleHttpClientErrorExceptionNotFound(HttpClientErrorException.NotFound ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND,
+                ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.BadRequest.class)
+    public ResponseEntity<Object> handleHttpClientErrorExceptionBadRequest(HttpClientErrorException.BadRequest ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND,
                 ex.getMessage());
     }
 

@@ -1,6 +1,7 @@
-package com.eventservice.config;
+package com.eventservice.config.security;
 
 import com.eventhub.common.security.JwtAuthenticationFilter;
+import com.eventservice.config.security.filter.InternalHeaderFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
+    private final InternalHeaderFilter internalHeaderFilter;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
+    public SecurityConfig(JwtAuthenticationFilter jwtFilter, InternalHeaderFilter internalHeaderFilter) {
         this.jwtFilter = jwtFilter;
+        this.internalHeaderFilter = internalHeaderFilter;
     }
 
     @Bean
@@ -28,10 +31,11 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/event", "/event/search",
+                        .requestMatchers("/events","/events/search",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**")
                         .permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -44,6 +48,8 @@ public class SecurityConfig {
                             response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"" + authException.getMessage() + "\"}");
                         })
                 )
+
+                .addFilterBefore(internalHeaderFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
