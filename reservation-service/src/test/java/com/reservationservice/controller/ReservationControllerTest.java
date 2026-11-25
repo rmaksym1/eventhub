@@ -1,24 +1,13 @@
 
 package com.reservationservice.controller;
 
-import com.eventhub.common.security.AuthenticatedUser;
 import com.reservationservice.client.EventClient;
-import com.testcommon.test.AbstractIntegrationTest;
-import org.junit.jupiter.api.AfterEach;
+import com.testcommon.test.AbstractControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -26,8 +15,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 @Sql(
         scripts = "/sql/reservations-controller-data.sql",
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
@@ -36,30 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         scripts = "/sql/cleanup.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD
 )
-class ReservationControllerTest extends AbstractIntegrationTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+class ReservationControllerTest extends AbstractControllerTest {
 
     @MockitoBean
     private EventClient eventClient;
-
-    private void authenticateAs(Long userId, String username, String role) {
-        var principal = new AuthenticatedUser(userId, username);
-
-        var authentication = new UsernamePasswordAuthenticationToken(
-                principal,
-                null,
-                List.of(new SimpleGrantedAuthority("ROLE_" + role))
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    @AfterEach
-    void clearSecurityContext() {
-        SecurityContextHolder.clearContext();
-    }
 
     @Test
     @DisplayName("Should get reservation by ID successfully")
