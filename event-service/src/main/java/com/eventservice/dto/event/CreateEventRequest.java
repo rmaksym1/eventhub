@@ -1,5 +1,6 @@
 package com.eventservice.dto.event;
 
+import com.eventservice.validation.EventDates;
 import com.eventservice.validation.ValidEventDates;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
@@ -35,4 +36,4 @@ public record CreateEventRequest(
         @NotNull(message = "Venue id cannot be null!")
         @Positive(message = "Venue id must be positive!")
         Long venueId
-) {}
+) implements EventDates {}
