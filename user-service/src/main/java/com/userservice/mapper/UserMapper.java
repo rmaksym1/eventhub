@@ -1,7 +1,7 @@
 package com.userservice.mapper;
 
 import com.userservice.config.MapperConfig;
-import com.userservice.dto.user.CreateUserRequest;
+import com.userservice.dto.auth.CreateUserRequest;
 import com.userservice.dto.user.PublicUserResponse;
 import com.userservice.dto.user.UserResponse;
 import com.userservice.dto.user.UserUpdateRequest;

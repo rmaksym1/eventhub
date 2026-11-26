@@ -1,7 +1,9 @@
 package com.userservice.service.impl;
 
 import com.eventhub.common.exception.EntityNotFoundException;
-import com.userservice.dto.user.*;
+import com.userservice.dto.user.UpdateRolesRequest;
+import com.userservice.dto.user.UserResponse;
+import com.userservice.dto.user.UserUpdateRequest;
 import com.userservice.entity.user.Role;
 import com.userservice.entity.user.User;
 import com.userservice.mapper.UserMapper;
