@@ -30,7 +30,7 @@ class UserControllerTest extends AbstractUserServiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email", equalTo("user@gmail.com")))
                 .andExpect(jsonPath("$.firstName", equalTo("User")))
-                .andExpect(jsonPath("$.lastName", equalTo("Userov")))
+                .andExpect(jsonPath("$.lastName", equalTo("User")))
                 .andExpect(jsonPath("$.roles", hasSize(1)))
                 .andExpect(jsonPath("$.roles[0].name", equalTo("ROLE_USER")));
     }
@@ -118,7 +118,7 @@ class UserControllerTest extends AbstractUserServiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email", equalTo("user@gmail.com")))
                 .andExpect(jsonPath("$.firstName", equalTo("User")))
-                .andExpect(jsonPath("$.lastName", equalTo("Userov")))
+                .andExpect(jsonPath("$.lastName", equalTo("User")))
                 .andExpect(jsonPath("$.roles", hasSize(1)))
                 .andExpect(jsonPath("$.roles[0].name", equalTo("ROLE_USER")));
     }
@@ -132,7 +132,7 @@ class UserControllerTest extends AbstractUserServiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(1)))
                 .andExpect(jsonPath("$.email", equalTo("admin@gmail.com")))
-                .andExpect(jsonPath("$.lastName", equalTo("Adminov")))
+                .andExpect(jsonPath("$.lastName", equalTo("Admin")))
                 .andExpect(jsonPath("$.firstName").doesNotExist())
                 .andExpect(jsonPath("$.roles").doesNotExist());
     }

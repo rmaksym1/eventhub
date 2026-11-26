@@ -146,7 +146,7 @@ class UserServiceTest {
     @DisplayName("Should return the public profile when the caller is not an admin")
     void shouldGetPublicUserForRegularUser() {
         User user = user("admin@test.com");
-        PublicUserResponse expected = new PublicUserResponse(1L, "admin@test.com", "Adminov");
+        PublicUserResponse expected = new PublicUserResponse(1L, "admin@test.com", "Admin");
 
         when(repository.findById(1L)).thenReturn(Optional.of(user));
         when(userMapper.toPublicResponse(user)).thenReturn(expected);
@@ -233,7 +233,7 @@ class UserServiceTest {
         user.setId(3L);
         user.setEmail(email);
         user.setFirstName("User");
-        user.setLastName("Userov");
+        user.setLastName("User");
         return user;
     }
 
@@ -244,6 +244,6 @@ class UserServiceTest {
     }
 
     private UserResponse userResponse() {
-        return new UserResponse("user@test.com", "User", "Userov", List.of());
+        return new UserResponse("user@test.com", "User", "User", List.of());
     }
 }
