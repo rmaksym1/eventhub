@@ -1,14 +1,13 @@
 package com.eventservice.validation;
 
-import com.eventservice.dto.event.CreateEventRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class EventDatesValidator implements ConstraintValidator<ValidEventDates, CreateEventRequest> {
+public class EventDatesValidator implements ConstraintValidator<ValidEventDates, EventDates> {
 
     @Override
     public boolean isValid(
-            CreateEventRequest request,
+            EventDates request,
             ConstraintValidatorContext context
     ) {
         if (request.startsAt() == null || request.endsAt() == null) {

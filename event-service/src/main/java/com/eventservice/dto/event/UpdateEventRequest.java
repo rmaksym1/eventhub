@@ -1,6 +1,7 @@
 package com.eventservice.dto.event;
 
 import com.eventservice.entity.event.EventStatus;
+import com.eventservice.validation.EventDates;
 import com.eventservice.validation.ValidEventDates;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,4 +31,4 @@ public record UpdateEventRequest(
         Long venueId,
         @NotNull(message = "Status cannot be null!")
         EventStatus status
-) {}
+) implements EventDates {}
